@@ -1,5 +1,5 @@
 #!/bin/bash
-
+source $(dirname $0)/settings.sh || exit 1
 source $(dirname $0)/argparse.bash || exit 1
 argparse "$@" <<EOF || exit 1
 parser.add_argument('bam')
@@ -9,25 +9,31 @@ EOF
 prefix=$(basename "$BAM" .bam)
 OUT=$OUT_DIR"/"$prefix
 
-mkdir $OUT_DIR
+sample_name=$prefix
+
+
+rm -rf $OUT_DIR
+mkdir -p $OUT_DIR
 cd $OUT_DIR
 
 
+imrep=$imrepDir/imrep.py
+clonality=$imrepDir/clonality.py
 
 
+if [ $hg -eq 19 ]; then
 
-module load samtools
-module load bowtie2
-module load bcftools
-module load python/2.7.3 
-module load pysam/0.9.1.4
+    $python $imrep --hg19 --noCast --noOverlapStep --bam $BAM ${OUT}.cdr3
 
+elif [ $hg -eq 38 ]; then
 
-pip install jellyfish --user
+    $python $imrep  --chrFormat2 --hg38 --noCast --noOverlapStep --bam $BAM ${OUT}.cdr3
+fi
 
+$python $clonality ${OUT}.cdr3  $OUT_DIR
 
-imrep=/PHShome/sv188/imrep/imrep.py
-python $imrep --noCast --noOverlapStep --bam $BAM ${OUT}.cdr3
-
+cp ${OUT_DIR}/summary.cdr3.txt  $summaryDir/summary_cdr3_${sample_name}.csv
+cp ${OUT_DIR}/summary.VJ.txt  $summaryDir/summary_VJ_${sample_name}.csv
 
 rm -fr ${OUT}_input.fasta
+rm -f  ${OUT_DIR}/*.csv
