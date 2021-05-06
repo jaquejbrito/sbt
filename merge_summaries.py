@@ -17,28 +17,30 @@ print(args.prefix)
 result  = pd.DataFrame(columns = ['sample'])
 result = result.append({'sample': args.prefix}, ignore_index=True)
 
+print(result)
+
 if os.path.exists(args.out_dir+"/summary_mtDNA.csv"):
     mtDNA = pd.read_csv(args.out_dir+"/summary_mtDNA.csv")
-    result = result.merge(mtDNA, on='sample')
+    result = result.merge(mtDNA, on='sample', how='left')
 
 if os.path.exists(args.out_dir+"/summary_rDNA.csv"):
     rDNA = pd.read_csv(args.out_dir+"/summary_rDNA.csv")
-    result = result.merge(rDNA, on='sample')
+    result = result.merge(rDNA, on='sample', how='left')
 
 if os.path.exists(args.out_dir+"/summary_microbiome.csv"):
     microbiome= pd.read_csv(args.out_dir+"/summary_microbiome.csv")
-    result = result.merge(microbiome, on='sample')
+    result = result.merge(microbiome, on='sample', how='left')
 
 if os.path.exists(args.out_dir+"/summary_cdr3.csv"):
     imrep = pd.read_csv(args.out_dir+"/summary_cdr3.csv")
-    result = result.merge(imrep, on='sample')
+    result = result.merge(imrep, on='sample', how='left')
 
 if os.path.exists(args.out_dir+"/summary_offcov.csv"):
     offcov = pd.read_csv(args.out_dir+"/summary_offcov.csv")
-    result = result.merge(offcov, on='sample')
+    result = result.merge(offcov, on='sample', how='left')
 
 if os.path.exists(args.out_dir+"/summary_reads.csv"):
     reads = pd.read_csv(args.out_dir+"/summary_reads.csv")
-    result = result.merge(reads, on='sample')
+    result = result.merge(reads, on='sample', how='left')
 
 result.to_csv(args.summary_dir+"/summary_"+args.prefix+".csv",index=False)

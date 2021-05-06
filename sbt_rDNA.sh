@@ -8,9 +8,10 @@ parser.add_argument('in_fastq_unm')
 parser.add_argument('out_dir')
 EOF
 
-prefix=$(basename "$IN_FASTQ_UNM" .bam)
+prefix=$(basename "$IN_FASTQ_UNM" _rdna_candidate.fastq)
 OUT=$OUT_DIR"/"$prefix
-sample=$(basename "$IN_FASTQ_UNM" _extended_unmapped.fastq)
+
+sample=$prefix
 
 rm -rf $OUT_DIR
 mkdir $OUT_DIR
