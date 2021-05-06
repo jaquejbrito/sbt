@@ -1,14 +1,5 @@
 #!/bin/bash
 
-. /u/local/Modules/default/init/modules.sh
-
-module load samtools
-module load bowtie2
-module load samtools
-module load python/3.7.2
-module load bwa
-module load bcftools
-
 which python
 
 source $(dirname $0)/settings.sh || exit 1
@@ -120,10 +111,12 @@ if [ $run_offcov = true ]; then
 fi
 
 if [ $run_count_reads = true ]; then
-    echo "$python $sbtDir/number.reads.bam.py $BAM $summaryDir/summary_reads_${PREFIX}.csv">>master_${PREFIX}.sh
+    echo "$python $sbtDir/number.reads.bam.py $BAM ${OUT_DIR}/summary_reads.csv">>master_${PREFIX}.sh
 fi
 
 
 chmod 755 master_${PREFIX}.sh
 
 ./master_${PREFIX}.sh
+
+$python $sbtDir/merge_summaries.py  ${PREFIX} ${OUT_DIR} $summaryDir

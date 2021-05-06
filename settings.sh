@@ -6,8 +6,11 @@ bwa=bwa
 bowtie2=bowtie2
 imrepDir="./imrep"
 sbtDir="./sbt"
-summaryDir="./sbt/summaries"
 dbDir="./sbt/dbs"
+
+# output files (csv) are store in this folder
+summaryDir="."
+
 #Human genome reference builds (19 or 38)
 hg=38
 

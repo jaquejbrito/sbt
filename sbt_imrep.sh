@@ -32,8 +32,8 @@ fi
 
 $python $clonality ${OUT}.cdr3  $OUT_DIR
 
-cp ${OUT_DIR}/summary.cdr3.txt  $summaryDir/summary_cdr3_${sample_name}.csv
-cp ${OUT_DIR}/summary.VJ.txt  $summaryDir/summary_VJ_${sample_name}.csv
+mv ${OUT_DIR}/summary.cdr3.txt  ${OUT_DIR}/summary_cdr3.csv
+mv ${OUT_DIR}/summary.VJ.txt  ${OUT_DIR}/summary_VJ.csv
 
-rm -fr ${OUT}_input.fasta
-rm -f  ${OUT_DIR}/*.csv
+
+rm -f ${OUT_DIR}/${sample_name}_input.fasta

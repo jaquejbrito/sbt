@@ -41,7 +41,5 @@ done < $intergenic_regions
 
 offcov=$(awk 'BEGIN {FS=","; sum1=0; sum2=0;} {sum1+=$3-$2; sum2+=$4} END {print sum2/sum1}' < ${OUT}.offtarget.cov)
 
-echo "sample,offcov" > ${OUT_DIR}/summary_offcov_${prefix}.csv
-echo "$prefix,$offcov" >> ${OUT_DIR}/summary_offcov_${prefix}.csv
-
-cp ${OUT_DIR}/summary_offcov_${prefix}.csv $summaryDir/
+echo "sample,offcov" > ${OUT_DIR}/summary_offcov.csv
+echo "$prefix,$offcov" >> ${OUT_DIR}/summary_offcov.csv

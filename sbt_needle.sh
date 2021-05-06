@@ -33,8 +33,7 @@ n_protozoa=$( cat ${OUT_DIR}/temp_protozoa_reads.txt | wc -l)
 n_microbiome=$( cat ${OUT_DIR}/temp_viral_reads.txt ${OUT_DIR}/temp_fungi_reads.txt  ${OUT_DIR}/temp_protozoa_reads.txt | wc -l)
 
 echo sample,n_viral,n_fungi,n_protozoa,n_microbiome>${OUT_DIR}/summary_microbiome.csv
-echo ${sample_name},$n_viral,$n_fungi,$n_protozoa,$n_microbiome>>${OUT_DIR}/summary_microbiome.csv
+echo ${sample_name},${n_viral},${n_fungi},${n_protozoa},${n_microbiome} >>${OUT_DIR}/summary_microbiome.csv
 
-cp ${OUT_DIR}/summary_microbiome.csv $summaryDir/summary_microbiome_${sample_name}.csv
 
 rm -f ${OUT_DIR}/temp*

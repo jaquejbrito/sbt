@@ -24,7 +24,6 @@ cov=${OUT}.mtDNA.cov
 bcf=${OUT}.mtDNA.bcf
 
 
-
 $bowtie2  -x $dbDir/mtDNA.db/mtDNA --end-to-end $IN_FASTQ | samtools view -F 4 -bh - | samtools sort - >$bam_mtDNA
 samtools index $bam_mtDNA
 samtools view -H $bam_mtDNA >$header
@@ -36,16 +35,11 @@ samtools mpileup -uf $dbDir/mtDNA.db/mtDNA.fasta $bam_mtDNA_unique | bcftools  c
 
 cov=$(awk '{print $3}' $cov | awk '{s+=$1} END {print s/16569}')
 
-echo "sample,name,mtDNA_ID,dosage" >${OUT_DIR}/summary_mtDNA.csv
-echo "${sample_name},mtDNA,MT,$cov" >>${OUT_DIR}/summary_mtDNA.csv
-
-cp ${OUT_DIR}/summary_mtDNA.csv $summaryDir/summary_mtDNA_${sample_name}.csv
+echo "sample,mtDNA_dosage" >${OUT_DIR}/summary_mtDNA.csv
+echo "${sample_name},$cov" >>${OUT_DIR}/summary_mtDNA.csv
 
 
-#rm -fr $bam_mtDNA
-#rm -fr ${bam_mtDNA}.bai
-#rm -fr $header
-#rm -fr $bam_mtDNA_unique
-
-
-#rm -fr $IN_FASTQ
+rm -fr ${bam_mtDNA}
+rm -fr ${bam_mtDNA}.bai
+rm -fr ${bam_mtDNA_unique}
+rm -fr $header

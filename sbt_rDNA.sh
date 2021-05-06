@@ -42,12 +42,8 @@ cov_5S=$(awk '{if ($1=="X12811.1") print $3}' $cov | awk '{s+=$1} END {print s/2
 echo "sample,5S_dosage,18S_dosage,28S_dosage" >${OUT_DIR}/summary_rDNA.csv
 echo "${sample},${cov_5S},${cov_18S},${cov_28S}" >>${OUT_DIR}/summary_rDNA.csv
 
-cp ${OUT_DIR}/summary_rDNA.csv $summaryDir/summary_rDNA_${sample}.csv
 
-
-#rm -fr $IN_FASTQ_CAND_RDNA
-
-#rm -fr $bam_rDNA
-#rm -fr ${bam_rDNA}.bai
-#rm -fr $header
-#rm -fr $bam_rDNA_unique
+rm -fr $bam_rDNA
+rm -fr ${bam_rDNA}.bai
+rm -fr $header
+rm -fr $bam_rDNA_unique
